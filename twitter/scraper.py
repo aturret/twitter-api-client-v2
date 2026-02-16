@@ -59,7 +59,7 @@ class Scraper:
         @param kwargs: optional keyword arguments
         @return: list of tweet data as dicts
         """
-        return self._run(Operation.TweetResultByRestId, tweet_ids, **kwargs)
+        return self._run(Operation.TweetResultByRestId, tweet_ids, **(latest_features | kwargs))
 
     def tweets_by_ids(self, tweet_ids: list[int | str], **kwargs) -> list[dict]:
         """
