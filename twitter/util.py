@@ -11,6 +11,8 @@ from aiofiles.os import makedirs
 from httpx import Response, Client
 from textwrap import dedent
 
+from typing import Any
+
 from .constants import GREEN, MAGENTA, RED, RESET, MAX_GQL_CHAR_LIMIT, USER_AGENTS, ORANGE
 
 
@@ -126,7 +128,7 @@ def get_headers(session, **kwargs) -> dict:
     try:
         if session._init_with_cookies:
             cookies.delete('ct0', domain='.twitter.com')
-    except:
+    except Exception:
         ...
     headers = kwargs | {
         'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs=1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
@@ -142,7 +144,7 @@ def get_headers(session, **kwargs) -> dict:
     return dict(sorted({k.lower(): v for k, v in headers.items()}.items()))
 
 
-def find_key(obj: any, key: str) -> list:
+def find_key(obj: Any, key: str) -> list:
     """
     Find all values of a given key within a nested dict or list of dicts
 
@@ -156,7 +158,7 @@ def find_key(obj: any, key: str) -> list:
     @return: list of values
     """
 
-    def helper(obj: any, key: str, L: list) -> list:
+    def helper(obj: Any, key: str, L: list) -> list:
         if not obj:
             return L
 

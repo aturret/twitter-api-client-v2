@@ -1,3 +1,5 @@
+# NOTE: pyproject.toml is the primary build configuration.
+# This file is maintained as a fallback for legacy tools.
 from textwrap import dedent
 from setuptools import find_packages, setup
 from pathlib import Path

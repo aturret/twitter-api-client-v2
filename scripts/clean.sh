@@ -6,6 +6,6 @@ fi
 if [ -d '../build' ] ; then
     rm -r ../build
 fi
-if [ -d '../twitter_api_client.egg-info' ] ; then
-    rm -r ../twitter_api_client.egg-info
+if [ -d '../twitter_api_client_v2.egg-info' ] ; then
+    rm -r ../twitter_api_client_v2.egg-info
 fi

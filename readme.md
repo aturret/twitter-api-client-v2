@@ -1,10 +1,10 @@
 ## Implementation of X/Twitter v1, v2, and GraphQL APIs
 
-[![PyPI Version](https://img.shields.io/pypi/v/twitter-api-client?color=4f46e5)](https://pypi.org/project/twitter-api-client)
-[![Python Version](https://img.shields.io/pypi/pyversions/twitter-api-client?color=3b82f6)](https://pypi.org/project/twitter-api-client)
-<img src="https://static.pepy.tech/badge/twitter-api-client"/>
-<img src="https://static.pepy.tech/badge/twitter-api-client/month"/>
-[![GitHub License](https://img.shields.io/github/license/trevorhobenshield/twitter-api-client?color=0891b2)](https://github.com/trevorhobenshield/twitter-api-client/blob/main/LICENSE)
+[![PyPI Version](https://img.shields.io/pypi/v/twitter-api-client-v2?color=4f46e5)](https://pypi.org/project/twitter-api-client-v2)
+[![Python Version](https://img.shields.io/pypi/pyversions/twitter-api-client-v2?color=3b82f6)](https://pypi.org/project/twitter-api-client-v2)
+<img src="https://static.pepy.tech/badge/twitter-api-client-v2"/>
+<img src="https://static.pepy.tech/badge/twitter-api-client-v2/month"/>
+[![GitHub License](https://img.shields.io/github/license/aturret/twitter-api-client?color=0891b2)](https://github.com/aturret/twitter-api-client/blob/main/LICENSE)
 
 ## Table of Contents
 
@@ -24,7 +24,7 @@
 ### Installation
 
 ```bash
-pip install twitter-api-client -U
+pip install twitter-api-client-v2 -U
 ```
 
 ### Automation

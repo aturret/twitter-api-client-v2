@@ -23,14 +23,13 @@ try:
         import nest_asyncio
 
         nest_asyncio.apply()
-except:
+except Exception:
     ...
 
 if platform.system() != 'Windows':
     try:
         import uvloop
-
-        uvloop.install()
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     except ImportError as e:
         ...
 
@@ -168,7 +167,7 @@ class Search:
     @property
     def id(self) -> int:
         """ Get User ID """
-        return int(re.findall('"u=(\d+)"', self.session.cookies.get('twid'))[0])
+        return int(re.findall(r'"u=(\d+)"', self.session.cookies.get('twid'))[0])
 
     def save_cookies(self, fname: str = None):
         """ Save cookies to file """

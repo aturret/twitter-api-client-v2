@@ -13,6 +13,8 @@ from httpx import AsyncClient, Limits
 from tqdm import tqdm
 from tqdm.asyncio import tqdm_asyncio
 
+from typing import Any
+
 from .constants import *
 from .login import login
 from .util import *
@@ -21,13 +23,13 @@ try:
     if get_ipython().__class__.__name__ == 'ZMQInteractiveShell':
         import nest_asyncio
         nest_asyncio.apply()
-except:
+except Exception:
     ...
 
 if platform.system() != 'Windows':
     try:
         import uvloop
-        uvloop.install()
+        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     except ImportError as e:
         ...
 
@@ -108,7 +110,7 @@ class Account:
                 self.logger.debug(f"{RED}Failed to send DM(s) to {receivers}{RESET}")
         return res
 
-    def tweet(self, text: str, *, media: any = None, **kwargs) -> dict:
+    def tweet(self, text: str, *, media: Any = None, **kwargs) -> dict:
         variables = {
             'tweet_text': text,
             'dark_request': False,
@@ -775,7 +777,7 @@ class Account:
         return self.gql('POST', Operation.DeleteScheduledTweet, variables)
 
     def clear_scheduled_tweets(self) -> None:
-        user_id = int(re.findall('"u=(\d+)"', self.session.cookies.get('twid'))[0])
+        user_id = int(re.findall(r'"u=(\d+)"', self.session.cookies.get('twid'))[0])
         drafts = self.gql('GET', Operation.FetchScheduledTweets, {"ascending": True})
         for _id in set(find_key(drafts, 'rest_id')):
             if _id != user_id:
@@ -790,7 +792,7 @@ class Account:
         return self.gql('POST', Operation.DeleteDraftTweet, variables)
 
     def clear_draft_tweets(self) -> None:
-        user_id = int(re.findall('"u=(\d+)"', self.session.cookies.get('twid'))[0])
+        user_id = int(re.findall(r'"u=(\d+)"', self.session.cookies.get('twid'))[0])
         drafts = self.gql('GET', Operation.FetchDraftTweets, {"ascending": True})
         for _id in set(find_key(drafts, 'rest_id')):
             if _id != user_id:
@@ -829,7 +831,7 @@ class Account:
     @property
     def id(self) -> int:
         """ Get User ID """
-        return int(re.findall('"u=(\d+)"', self.session.cookies.get('twid'))[0])
+        return int(re.findall(r'"u=(\d+)"', self.session.cookies.get('twid'))[0])
 
     def save_cookies(self, fname: str = None):
         """ Save cookies to file """
