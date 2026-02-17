@@ -1,0 +1,54 @@
+[project]
+name = "twitter-api-client-v2"
+version = "0.1.0"
+description = "Implementation of X/Twitter v1, v2, and GraphQL APIs."
+requires-python = ">=3.12"
+license = "MIT"
+authors = [
+    {name = "Trevor Hobenshield", email = "trevorhobenshield@gmail.com"},
+]
+maintainers = [
+    {name = "aturret"},
+]
+readme = "readme.md"
+keywords = ["twitter", "api", "client", "async", "search", "automation", "bot", "scrape"]
+classifiers = [
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: Unix",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "aiofiles",
+    "nest-asyncio",
+    "httpx",
+    "tqdm",
+    "orjson",
+    "m3u8",
+    "websockets",
+    "uvloop; platform_system != 'Windows'",
+]
+
+[project.urls]
+Homepage = "https://github.com/aturret/twitter-api-client-v2"
+Repository = "https://github.com/aturret/twitter-api-client-v2"
+Upstream = "https://github.com/trevorhobenshield/twitter-api-client-v2"
+
+[dependency-groups]
+dev = ["pytest", "pytest-asyncio"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["twitter"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

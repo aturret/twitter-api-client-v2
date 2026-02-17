@@ -109,7 +109,7 @@ class Operation:
     UsersByRestIds = {'userIds': list}, 'OJBgJQIrij6e3cjqQ3Zu1Q', 'UsersByRestIds'
     UserMedia = {'userId': int}, 'YqiE3JL1KNgf9nSljYdxaA', 'UserMedia'
     UserTweetsAndReplies = {'userId': int}, 'RIWc55YCNyUJ-U3HHGYkdg', 'UserTweetsAndReplies'
-    TweetResultByRestId = {'tweetId': int}, 'D_jNhjWZeRZT5NURzfJZSQ', 'TweetResultByRestId'
+    TweetResultByRestId = {'tweetId': int}, 'd6YKjvQ920F-D4Y1PruO-A', 'TweetResultByRestId'
     TweetResultsByRestIds = {'tweetIds': list[int | str]}, 'BWy5aoI-WvwbeSiHUIf2Hw', 'TweetResultsByRestIds'
     TweetDetail = {'focalTweetId': int}, 'zXaXQgfyR4GxE21uwYQSyA', 'TweetDetail'
     TweetStats = {'rest_id': int}, 'EvbTkPDT-xQCfupPu0rWMA', 'TweetStats'
@@ -670,3 +670,27 @@ recommendations_params = {
     'limit': 100,
     'ext': 'mediaStats,highlightedLabel,hasNftAvatar,voiceInfo,birdwatchPivot,superFollowMetadata,unmentionInfo,editControl'
 }
+
+latest_features = {
+        "responsive_web_grok_share_attachment_enabled": True,
+        "responsive_web_grok_show_grok_translated_post": True,
+        "responsive_web_profile_redirect_enabled": True,
+        "responsive_web_grok_analyze_post_followups_enabled": True,
+        "post_ctas_fetch_enabled": True,
+        "rweb_tipjar_consumption_enabled": True,
+        "responsive_web_grok_analysis_button_from_backend": True,
+        "responsive_web_grok_imagine_annotation_enabled": True,
+        "responsive_web_jetfuel_frame": True,
+        "premium_content_api_read_enabled": True,
+        "responsive_web_grok_analyze_button_fetch_trends_enabled": True,
+        "communities_web_enable_tweet_community_results_fetch": True,
+        "profile_label_improvements_pcf_label_in_post_enabled": True,
+        "responsive_web_grok_image_annotation_enabled": True,
+        "responsive_web_grok_community_note_auto_translation_is_enabled": True,
+        "articles_preview_enabled": True,
+        "responsive_web_grok_annotations_enabled": True,
+        "longform_notetweets_inline_media_enabled": True,
+        "responsive_web_edit_tweet_api_enabled": True,
+        "graphql_is_translatable_rweb_tweet_is_translatable_enabled": True,
+        "view_counts_everywhere_api_enabled": True
+    }
