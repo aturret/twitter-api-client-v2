@@ -25,6 +25,7 @@ except Exception:
 if platform.system() != 'Windows':
     try:
         import uvloop
+
         asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     except ImportError as e:
         ...
@@ -59,7 +60,8 @@ class Scraper:
         @param kwargs: optional keyword arguments
         @return: list of tweet data as dicts
         """
-        return self._run(Operation.TweetResultByRestId, tweet_ids, **(latest_features | kwargs))
+        kwargs['features'] = target_features
+        return self._run(Operation.TweetResultByRestId, tweet_ids, **kwargs)
 
     def tweets_by_ids(self, tweet_ids: list[int | str], **kwargs) -> list[dict]:
         """
@@ -83,6 +85,9 @@ class Scraper:
         @param kwargs: optional keyword arguments
         @return: list of tweet data as dicts
         """
+        kwargs.update(static_variables)
+        kwargs['features'] = target_features
+        kwargs['fieldToggles'] = target_field_toggles
         return self._run(Operation.TweetDetail, tweet_ids, **kwargs)
 
     def tweets(self, user_ids: list[int], **kwargs) -> list[dict]:
@@ -244,7 +249,8 @@ class Scraper:
         """
         return self._run(Operation.UserByRestId, user_ids, **kwargs)
 
-    def download_media(self, ids: list[int], photos: bool = True, videos: bool = True, cards: bool = True, hq_img_variant: bool = True, video_thumb: bool = False, out: str = 'media',
+    def download_media(self, ids: list[int], photos: bool = True, videos: bool = True, cards: bool = True,
+                       hq_img_variant: bool = True, video_thumb: bool = False, out: str = 'media',
                        metadata_out: str = 'media.json', **kwargs) -> dict:
         """
         Download and extract media metadata from Tweets
@@ -267,7 +273,8 @@ class Scraper:
                 'keepalive_expiry': kwargs.pop('keepalive_expiry', 5.0),
             }
             headers = {'user-agent': random.choice(USER_AGENTS)}
-            async with AsyncClient(limits=Limits(**limits), headers=headers, http2=True, verify=False, timeout=60, follow_redirects=True) as client:
+            async with AsyncClient(limits=Limits(**limits), headers=headers, http2=True, verify=False, timeout=60,
+                                   follow_redirects=True) as client:
                 return await tqdm_asyncio.gather(*(fn(client=client) for fn in fns), desc='Downloading Media')
 
         def download(urls: list[tuple], out: str) -> Generator:
@@ -295,7 +302,8 @@ class Scraper:
                 if _id := root.get('rest_id'):
                     date = root.get('legacy', {}).get('created_at', '')
                     uid = root.get('legacy', {}).get('user_id_str', '')
-                    media[_id] = {'date': date, 'uid': uid, 'img': set(), 'video': {'thumb': set(), 'video_info': {}, 'hq': set()}, 'card': []}
+                    media[_id] = {'date': date, 'uid': uid, 'img': set(),
+                                  'video': {'thumb': set(), 'video_info': {}, 'hq': set()}, 'card': []}
                     for _media in (y for x in find_key(root, 'media') for y in x if isinstance(x, list)):
                         if videos:
                             if vinfo := _media.get('video_info'):
@@ -588,10 +596,18 @@ class Scraper:
 
     async def _query(self, client: AsyncClient, operation: tuple, **kwargs) -> Response:
         keys, qid, name = operation
+
+        features_override = kwargs.pop('features', None)
+        field_toggles = kwargs.pop('fieldToggles', None)
+
         params = {
             'variables': Operation.default_variables | keys | kwargs,
-            'features': Operation.default_features,
+            'features': features_override if features_override else Operation.default_features,
         }
+
+        if field_toggles:
+            params['fieldToggles'] = field_toggles
+
         r = await client.get(f'https://twitter.com/i/api/graphql/{qid}/{name}', params=build_params(params))
 
         try:
@@ -608,7 +624,8 @@ class Scraper:
     async def _process(self, operation: tuple, queries: list[dict], **kwargs):
         headers = self.session.headers if self.guest else get_headers(self.session)
         cookies = self.session.cookies
-        async with AsyncClient(limits=Limits(max_connections=MAX_ENDPOINT_LIMIT), headers=headers, cookies=cookies, timeout=20) as c:
+        async with AsyncClient(limits=Limits(max_connections=MAX_ENDPOINT_LIMIT), headers=headers, cookies=cookies,
+                               timeout=20) as c:
             tasks = (self._paginate(c, operation, **q, **kwargs) for q in queries)
             if self.pbar:
                 return await tqdm_asyncio.gather(*tasks, desc=operation[-1])
