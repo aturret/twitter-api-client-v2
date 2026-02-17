@@ -716,11 +716,11 @@ target_field_toggles = {
 }
 
 static_variables = {
-        "with_rux_injections": False,
-        "rankingMode": "Relevance",
-        "includePromotedContent": True,
-        "withCommunity": True,
-        "withQuickPromoteEligibilityTweetFields": True,
-        "withBirdwatchNotes": True,
-        "withVoice": True
+    "with_rux_injections": False,
+    "rankingMode": "Relevance",
+    "includePromotedContent": True,
+    "withCommunity": True,
+    "withQuickPromoteEligibilityTweetFields": True,
+    "withBirdwatchNotes": True,
+    "withVoice": True
 }
