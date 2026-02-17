@@ -1,5 +1,4 @@
 import asyncio
-import json
 import logging.config
 import math
 import platform
