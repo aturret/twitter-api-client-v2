@@ -39,9 +39,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/aturret/twitter-api-client"
-Repository = "https://github.com/aturret/twitter-api-client"
-Upstream = "https://github.com/trevorhobenshield/twitter-api-client"
+Homepage = "https://github.com/aturret/twitter-api-client-v2"
+Repository = "https://github.com/aturret/twitter-api-client-v2"
+Upstream = "https://github.com/trevorhobenshield/twitter-api-client-v2"
 
 [dependency-groups]
 dev = ["pytest", "pytest-asyncio"]
